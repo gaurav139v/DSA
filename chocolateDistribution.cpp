@@ -5,7 +5,7 @@ using namespace std;
 
 int findResult(vector<int> a, int n , int m){
 	sort(a.begin() , a.end());	
-	int minValue = a[m-1] - a[0];
+	int minValue = INT_MAX;
 	int len = n-m+1;
 	
 	for(int i=0; i<len; i++)	
