@@ -118,6 +118,25 @@ int searchInRoatated(int arr[],  int len, int target){
 	
 }
 
+int searchInNearlySorted(int arr[], int len, int target){
+	int start = 0, end= len -1;
+	while(start <= end){
+		int mid = start + (end -start)/2;
+		if(arr[mid] == target)
+			return mid;
+		else if(mid -1 >= start && arr[mid-1] == target)
+			return mid -1;
+		else if(mid + 1 <= end && arr[mid+1] == target)
+			return mid+1;
+	
+		if(arr[mid] > target)
+			end = mid - 2;
+		else if(arr[mid] < target)
+			start = mid + 2;
+	}
+	return -1;		
+}
+
 int main(){
 	int arr[] = {1,2,4,6,8,9,12,23,34,56,78}; //sorted array acs
 	
@@ -154,8 +173,14 @@ int main(){
 	// search element in rotated array
 	//r4[] = {400,500,55,77,88,100,133,145,200}; // sorted array decs
 	len = sizeof(arr4)/sizeof(arr4[0]);
-	target = 500;
+	target = 500 ;
 	res = searchInRoatated(arr4, len, target);
 	cout <<"Searched in Rotated array : "<<  res << endl; 
+	
+	int arr5[] = {1,2,3,5,4,6}; // sorted array decs
+	len = sizeof(arr5)/sizeof(arr5[0]);
+	target = 6;
+	res = searchInNearlySorted(arr5, len, target);
+	cout <<"Searched in Nearly sorted array : "<<  res << endl; 
 	
 }
