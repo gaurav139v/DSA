@@ -1,3 +1,4 @@
+// Find all the combination of word in string time Complexity O(n*m) space complexity O(n)
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -16,7 +17,6 @@ bool check(map<char, int> m1, map<char,int> m2, string sub){
 }
 
 void findResult(string s, string sub){
-	
 	int len1 = s.length();
 	int len2 = sub.length();
 	map<char, int>  m1, m2;
@@ -27,20 +27,17 @@ void findResult(string s, string sub){
 		m2[s[end++]]++;
 	}
 	
-	while(end < len1){
+	while(end <= len1){
 		if(check(m1, m2, sub)){
 		 cout << "Found at : " << start << endl;
 		}
 		m2[s[end++]]++;
 		m2[s[start++]]--;				
-	}
-	if(check(m1, m2, sub)){
-		 cout << "Found at : " << start << endl;
-	}
+	}	
 }
 
 int main(){
-	string s = "arbcabdbbca";
+	string s = "abcabc";
 	string sub = "abc";
 	findResult(s, sub);
 }
