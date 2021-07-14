@@ -100,7 +100,7 @@ int numberOfRoataion(int arr[], int len){
 		else if(arr[mid] <= arr[end])
 			end = mid;
 	}
-
+	return 0;
 }
 
 int searchInRoatated(int arr[],  int len, int target){
@@ -146,14 +146,48 @@ int findFloor(int arr[], int len, int target){
 		
 		if(arr[mid] == target)
 			return mid;
-		//else if (mid -1 >= start)
-			//result = mid -1;
-		
+		  
 		if(arr[mid] > target){
 			end = mid - 1;
 		}else if (arr[mid] < target){
 			result = arr[mid];
 			start = mid +1;
+		}
+	}
+	return result;
+}
+
+int findCeil(int arr[], int len, int target){
+	int start = 0, end= len-1;
+	int result = -1;
+	
+	while(start <= end){
+		int mid = start + (end - start)/2;
+		if(arr[mid] == target){ 
+			return arr[mid];
+		}else if(arr[mid] > target){
+			result = arr[mid];
+			end = mid - 1;
+		}else if(arr[mid] < target){
+			start = mid + 1;
+		} 
+	}
+	return result;
+}
+
+char findCharCeil(char arr[], int len , char target){
+	int start =0, end = len -1;
+	char result = '#';
+	
+	while(start <= end){
+		int mid = start + (end -end)/2;
+		if(arr[mid] == target){
+			start = mid + 1; // if next char is equal to target.
+		}else if(arr[mid] > target){
+			result = arr[mid];
+			end = mid -1;
+		}else{
+			start = mid + 1;
 		}
 	}
 	return result;
@@ -210,6 +244,15 @@ int main(){
 	target = 11;
 	res = findFloor(arr6, len, target);
 	cout <<"Floor : "<<  res << endl; 
+	
+	res = findCeil(arr6, len, target);
+	cout <<"Ceil : "<<  res << endl;
+	
+	char arr7[] = {'a','b', 'c','g', 'f', 'i', 'm'};
+	len = sizeof(arr7)/sizeof(arr7[0]);
+	char tar = 'c';
+	char r = findCharCeil(arr7, len, tar);
+	cout << "Ceil of char : " << r << endl;
 	
 	
 }
