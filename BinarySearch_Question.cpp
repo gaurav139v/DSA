@@ -137,6 +137,28 @@ int searchInNearlySorted(int arr[], int len, int target){
 	return -1;		
 }
 
+int findFloor(int arr[], int len, int target){
+	int start = 0, end = len -1;
+	int result = -1;
+	
+	while(start <= end){
+		int mid = start + (end-start)/2;
+		
+		if(arr[mid] == target)
+			return mid;
+		//else if (mid -1 >= start)
+			//result = mid -1;
+		
+		if(arr[mid] > target){
+			end = mid - 1;
+		}else if (arr[mid] < target){
+			result = arr[mid];
+			start = mid +1;
+		}
+	}
+	return result;
+}
+
 int main(){
 	int arr[] = {1,2,4,6,8,9,12,23,34,56,78}; //sorted array acs
 	
@@ -182,5 +204,12 @@ int main(){
 	target = 6;
 	res = searchInNearlySorted(arr5, len, target);
 	cout <<"Searched in Nearly sorted array : "<<  res << endl; 
+	
+	int arr6[] = {1,2,3,6,8,10,10,19}; // sorted array decs
+	len = sizeof(arr6)/sizeof(arr6[0]);
+	target = 11;
+	res = findFloor(arr6, len, target);
+	cout <<"Floor : "<<  res << endl; 
+	
 	
 }
