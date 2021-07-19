@@ -10,6 +10,7 @@ void print(int arr[], int len){
 }
 
 int binarySearch(int arr[], int len, int target){
+	
 	int start = 0, end = len -1;
 	while(start <= end){
 		int mid = start + (end - start)/2;  // so that mid does not exceed int limit.
@@ -193,6 +194,99 @@ char findCharCeil(char arr[], int len , char target){
 	return result;
 }
 
+int findInInfinteArray(int arr[], int target){
+	int start = 0;
+	int end = 1;
+	while(target > arr[end]){
+		start = end;
+		end = end * 2;
+	}
+
+	while(start <= end){
+		int mid = start + (end - start)/2;
+		if(arr[mid] == target){
+			return mid;
+		}else if(arr[mid] < target){
+			start = mid + 1;
+		}else{
+			end = mid - 1;
+		}
+	}
+	return -1;
+}
+
+int findFirstOccur1(int arr[]){
+	int target = 1, result = -1 ;
+	int start = 0; 
+	int end = 1;
+	while(arr[end] < target){
+		start = end;
+		end = end * 2;
+	}
+	
+	while(start <= end){
+		int mid = start + (end - start)/2;
+		
+		if (arr[mid] == target){
+			result = mid;
+			end = mid -1;
+		}else if(arr[mid] < target){
+			start = mid + 1;
+		}else{ 
+			end = mid -1;
+		}
+	}
+	return result;
+}
+
+int findSmallestDiff(int arr[], int len, int target){
+	int start = 0, end = len-1;
+	while(start <= end){
+		int mid = start + (end - start)/2;
+		if(arr[mid] == target){
+			return arr[mid];
+		}else if(arr[mid] > target){
+			end = mid -1;
+		}else{
+			start = mid + 1;
+		}
+	}
+	int result = (abs(target - arr[start]) > abs(target - arr[end]))? arr[end] : arr[start];
+	return result;
+}
+
+int findPeakElement(int arr[], int len){
+	int start = 0, end = len -1;
+	while(start <= end){
+		int mid = start + (end - start)/2;
+		if(mid > 0 && mid < len -1){
+			if(arr[mid] > arr[mid-1] &&  arr[mid] > arr[mid+1]){
+				return arr[mid];
+				
+			}else if(arr[mid] < arr[mid-1]){
+				end = mid - 1;
+				
+			}else{
+				start = mid + 1;
+			}
+		}else if(mid == 0){
+			if(arr[0] > arr[1]){
+				return arr[0];
+			}else {
+				return arr[1];
+			}
+		}else if(mid == len -1 ){
+			if(arr[len -1] >  arr[len -2]){
+				return arr[len-1];
+			}else {
+				return arr[len -2];
+			}
+		}
+	}
+	return -1;
+}
+			
+
 int main(){
 	int arr[] = {1,2,4,6,8,9,12,23,34,56,78}; //sorted array acs
 	
@@ -254,5 +348,26 @@ int main(){
 	char r = findCharCeil(arr7, len, tar);
 	cout << "Ceil of char : " << r << endl;
 	
+	int arr9[] = {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1}; // sorted array decs
+	len = sizeof(arr9)/sizeof(arr9[0]);
+	target = 23;
+	res = findFirstOccur1(arr9);
+	cout <<"First occurence of 1 in Infinity array : "<<  res << endl; 
+	
+	//find the smallest differene in infinite array
+	int arr10[] = {1,2,3,6,8,11,13,19}; // sorted array decs
+	len = sizeof(arr10)/sizeof(arr10[0]);
+	target = 9;
+	res = findSmallestDiff(arr10, len, target);
+	cout <<"Smallest difference in infinite array : "<<  res << endl; 
+			
+	// peak element in unsorted array
+	// element is peak if its left and right element are smaller
+	int arr11[] = {1,2,3,24,6,14,13,12}; // sorted array decs
+	//int arr11[] = {99,98,87,76,65,62,54,43,21,6,3,2};
+	len = sizeof(arr11)/sizeof(arr11[0]);
+	target = 9;
+	res = findPeakElement(arr11, len);
+	cout <<"Find the peak element in unsorted array : "<<  res << endl; 
 	
 }
