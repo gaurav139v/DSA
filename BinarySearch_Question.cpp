@@ -285,7 +285,44 @@ int findPeakElement(int arr[], int len){
 	}
 	return -1;
 }
-			
+
+int findMaxInBitonic(int arr[], int len){
+	int start = 0, end = len -1;
+	while(start <= end){
+		int mid = start + (end - start)/2;
+		if(mid >0 && mid < len -1){
+			if(arr[mid] > arr[mid-1] && arr[mid] > arr[mid+1]){
+				return mid;
+			}else if(arr[mid] < arr[mid-1]){
+				end = mid -1;
+			}else {
+				start = mid + 1;
+			}
+		}else if(mid == 0){
+			if(arr[mid] >  arr[mid+1]){
+				return mid;
+			}else{
+				return mid+1;
+			}
+		}else if(mid == len -1){
+			if(arr[mid] > arr[len -2]){
+				return mid;
+			}else { 
+				return len-2;
+			}
+		}
+	}
+	return -1;
+}
+
+int findInBitonic(int arr[], int len, int target){
+	int peak = findMaxInBitonic(arr, len);
+	
+	int result = binarySearchDesc(&arr[peak], len - peak , target);
+	if(result != -1)
+		return result + peak;
+	return binarySearch(arr, peak+1, target);
+}
 
 int main(){
 	int arr[] = {1,2,4,6,8,9,12,23,34,56,78}; //sorted array acs
@@ -369,5 +406,23 @@ int main(){
 	target = 9;
 	res = findPeakElement(arr11, len);
 	cout <<"Find the peak element in unsorted array : "<<  res << endl; 
+	
+	
+	int arr12[] = {1,2,4,5,7,14,16,15,12,11,3};
+	//int arr12[] = {5,4};
+	len = sizeof(arr12)/sizeof(arr12[0]);
+	target = 9;
+	res = findMaxInBitonic(arr12, len);
+	cout <<"Maximum element in bitonic array : "<<  arr12[res] << endl; 
+	
+	// search element in bitonic array.
+	//int arr12[] = {1,2,4,5,7,14,16,15,12,11,5,3};
+	//int arr12[] = {5,4};
+	len = sizeof(arr12)/sizeof(arr12[0]);
+	target = 7;
+	res = findInBitonic(arr12, len, target);
+	cout<< res << endl;
+	cout <<"Searchin bitonic array : "<<  res << endl; 
+	
 	
 }
