@@ -324,6 +324,26 @@ int findInBitonic(int arr[], int len, int target){
 	return binarySearch(arr, peak+1, target);
 }
 
+pair<int,int> findInSortedArray(int arr[4][4], int row, int col, int target){
+	int i = 0, j = col -1;
+	pair<int, int> p(-1,-1);
+	
+	while(i >=0 && i < row && j < col && j>=0){
+		if( arr[i][j] == target){
+			p.first = i;
+			p.second = j;
+			return  p;
+		}
+		
+		if(arr[i][j] > target){
+			j--;
+		}else {
+			i++;
+		}
+	}
+	return p;
+}
+
 int main(){
 	int arr[] = {1,2,4,6,8,9,12,23,34,56,78}; //sorted array acs
 	
@@ -421,8 +441,17 @@ int main(){
 	len = sizeof(arr12)/sizeof(arr12[0]);
 	target = 7;
 	res = findInBitonic(arr12, len, target);
-	cout<< res << endl;
-	cout <<"Searchin bitonic array : "<<  res << endl; 
+	cout <<"Searchin bitonic array : "<<  res << endl;
+	
+	int arr13[4][4] = {{10,20,30,40},
+					   {13,24,34,44},
+					   {14,25,35,45},
+					   {17,27,38,49}};
+	int row = sizeof(arr13)/sizeof(arr13[0]);
+	int col = sizeof(arr13[0])/sizeof(arr13[0][0]);
+	target = 35;
+	pair<int , int> p = findInSortedArray(arr13, row, col, target);
+	cout <<"Searching in sorted array : "<<  p.first << " " << p.second << endl; 
 	
 	
 }
